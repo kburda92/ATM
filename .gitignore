@@ -4,3 +4,6 @@
 Client/Debug/
 *.suo
 Client/Client/Debug/
+Server/Server/Debug/
+Server/packages/
+Server/Debug/

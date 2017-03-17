@@ -1,0 +1,6 @@
+*.opendb
+*.db
+*.pdb
+Client/Debug/
+*.suo
+Client/Client/Debug/

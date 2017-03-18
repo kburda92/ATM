@@ -1,30 +1,32 @@
 #pragma once
+#include <afx.h>
 
-class CEdit;
-class CStatic;
+class LoginView;
 class LoginViewState
 {
-public:
-	LoginViewState(CEdit& valueEdit, CStatic& enterValueStatic, int& maxChars);
 protected:
-	CEdit& valueEdit;
-	CStatic& enterValueStatic;
-	int& maxChars;
-	virtual void SetValues();
+	LoginView* view;
+public:
+	LoginViewState(LoginView* view) : view(view) {}
+	virtual void Init();
+	virtual int GetMaxChars() = 0;
+	virtual CString& GetValue() = 0;
 };
 
 class IdState : public LoginViewState
 {
 public:
-	IdState(CEdit& valueEdit, CStatic& enterValueStatic, int& maxChars);
-protected:
-	void SetValues();
+	IdState(LoginView* view) : LoginViewState(view) {}
+	void Init();
+	int GetMaxChars() { return 8; }
+	CString& GetValue();
 };
 
 class PinState : public LoginViewState
 {
 public:
-	PinState(CEdit& valueEdit, CStatic& enterValueStatic, int& maxChars);
-protected:
-	void SetValues();
+	PinState(LoginView* view) : LoginViewState(view) {}
+	void Init();
+	int GetMaxChars() { return 4; }
+	CString& GetValue();
 };

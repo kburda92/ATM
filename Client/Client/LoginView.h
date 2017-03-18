@@ -15,20 +15,22 @@ class LoginView : public CFormView
 	DECLARE_DYNCREATE(LoginView)
 	DECLARE_MESSAGE_MAP()
 private:
-	void SetState(const ViewType& type);
 	afx_msg void OnLoginButtonClicked();
-	std::unique_ptr<LoginViewState> state;
+	std::unique_ptr<LoginViewState> state = std::make_unique<IdState>(this);
 	CButton loginButton;
 	CEdit valueEdit;
 	CStatic enterValueStatic;
-	int maxChars = 8;
-	CString value;
+	CString idValue, pinValue;
 protected:
 	LoginView();
 	virtual ~LoginView();
 	virtual void DoDataExchange(CDataExchange* pDX);
 public:
+	CEdit& GetValueEdit() { return valueEdit; }
+	CStatic& GetEnterValueStatic() { return enterValueStatic; }
+	CString& GetId() { return idValue; }
+	CString& GetPin() { return pinValue; }
 	void OnInitialUpdate();
-	afx_msg void OnEnChangeValueedit();
+	afx_msg void OnEnChangeValueEdit();
 };
 

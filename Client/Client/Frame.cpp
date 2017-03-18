@@ -14,17 +14,14 @@ Frame::Frame()
 {
 }
 
-void Frame::SwitchToView(int viewId)
+void Frame::SwitchToSelectionView()
 {
 	CView* pOldActiveView = GetActiveView();
-	CView* pNewActiveView = (CView*)GetDlgItem(viewId);
-	if (pNewActiveView == NULL) {
-		pNewActiveView = (CView*) new SelectionView();
-		CCreateContext context;
-		context.m_pCurrentDoc = pOldActiveView->GetDocument();
-		pNewActiveView->Create(NULL, NULL, 0L, CFrameWnd::rectDefault, this, viewId, &context);
-		pNewActiveView->OnInitialUpdate();
-	}
+	CView* pNewActiveView = (CView*) new SelectionView();
+	CCreateContext context;
+	context.m_pCurrentDoc = pOldActiveView->GetDocument();
+	pNewActiveView->Create(NULL, NULL, 0L, CFrameWnd::rectDefault, this, 0, &context);
+	pNewActiveView->OnInitialUpdate();
 	SetActiveView(pNewActiveView);
 	pNewActiveView->ShowWindow(SW_SHOW);
 	pOldActiveView->ShowWindow(SW_HIDE);
@@ -51,13 +48,19 @@ BOOL Frame::PreCreateWindow(CREATESTRUCT& cs)
 
 LRESULT Frame::OnLogin(WPARAM wParam, LPARAM lParam)
 {
-	//if ()
-	//{
-	//	
-	//	//checking id and password
-		SwitchToView(0);
-	//	return 1;
-	//}
+	auto *id = (CString*)wParam;
+	auto *pin = (CString*)lParam;
 
-	return 0;
+	auto dataCorrectness = IsIdPinCorrect();
+
+	if (!dataCorrectness)
+		return false;
+
+	SwitchToSelectionView();
+	return true;
+}
+
+bool Frame::IsIdPinCorrect()
+{
+	return true;
 }

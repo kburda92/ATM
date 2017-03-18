@@ -30,7 +30,7 @@
     <ClCompile Include="SelectionView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LoginViewState.cpp">
+    <ClCompile Include="LoginViewStates.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -12,32 +12,30 @@ LoginView::LoginView() : CFormView(IDD_LOGINVIEW)
 LoginView::~LoginView()
 {}
 
-void LoginView::SetState(const ViewType& type)
-{
-	switch (type)
-	{
-	case ViewType::Id:
-		state = std::make_unique<IdState>(valueEdit, enterValueStatic, maxChars);
-		break;
-	case ViewType::Pin:
-		state = std::make_unique<PinState>(valueEdit, enterValueStatic, maxChars);
-		break;
-	}
-}
 
 BEGIN_MESSAGE_MAP(LoginView, CFormView)
 ON_BN_CLICKED(IDC_LOGINBUTTON, &LoginView::OnLoginButtonClicked)
-ON_EN_CHANGE(IDC_VALUEEDIT, &LoginView::OnEnChangeValueedit)
+ON_EN_CHANGE(IDC_VALUEEDIT, &LoginView::OnEnChangeValueEdit)
 END_MESSAGE_MAP()
 
 void LoginView::OnLoginButtonClicked()
 {
-	if(typeid(*state) == typeid(IdState))
-		SetState(ViewType::Pin);
-	else
-		SetState(ViewType::Id);
 	UpdateData(TRUE);
-	//AfxGetMainWnd()->PostMessageW(WM_LOGIN);
+	if(typeid(*state) == typeid(IdState))
+		state = std::make_unique<PinState>(this);
+	else
+	{
+		if (!AfxGetMainWnd()->SendMessage(WM_LOGIN, (WPARAM)&idValue, (LPARAM)&pinValue))
+			state = std::make_unique<IdState>(this);
+		else
+			state.release();
+	}
+
+	if (state)
+	{
+		state->Init();
+		UpdateData(FALSE);
+	}
 }
 
 void LoginView::DoDataExchange(CDataExchange * pDX)
@@ -45,19 +43,19 @@ void LoginView::DoDataExchange(CDataExchange * pDX)
 	CFormView::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_ENTERVALUESTATIC, enterValueStatic);
 	DDX_Control(pDX, IDC_VALUEEDIT, valueEdit);
-	DDX_Text(pDX, IDC_VALUEEDIT, value);
-	DDV_MaxChars(pDX, value, maxChars);
+	DDX_Text(pDX, IDC_VALUEEDIT, state->GetValue());
+	DDV_MaxChars(pDX, state->GetValue(), state->GetMaxChars());
 	DDX_Control(pDX, IDC_LOGINBUTTON, loginButton);
 }
 
 void LoginView::OnInitialUpdate()
 {
 	CFormView::OnInitialUpdate();
-	SetState(ViewType::Id);
-	//loginButton.EnableWindow(false);
+	state->Init();
 }
 
-void LoginView::OnEnChangeValueedit()
+void LoginView::OnEnChangeValueEdit()
 {
-	loginButton.EnableWindow(valueEdit.GetWindowTextLengthW() == maxChars);
+	loginButton.EnableWindow(valueEdit.GetWindowTextLengthW() == state->GetMaxChars());
+	loginButton.SetFocus();
 }

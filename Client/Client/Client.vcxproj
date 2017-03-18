@@ -23,7 +23,7 @@
     <ClCompile Include="Doc.cpp" />
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="LoginView.cpp" />
-    <ClCompile Include="LoginViewState.cpp" />
+    <ClCompile Include="LoginViewStates.cpp" />
     <ClCompile Include="SelectionView.cpp" />
   </ItemGroup>
   <ItemGroup>

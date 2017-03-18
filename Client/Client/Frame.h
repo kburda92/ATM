@@ -7,6 +7,7 @@ class Frame : public CFrameWnd
 protected:
 	Frame();
 public:
-	void SwitchToView(int);
+	void SwitchToView(int nView);
+	BOOL PreCreateWindow(CREATESTRUCT& cs);
 };
 

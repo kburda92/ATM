@@ -7,3 +7,5 @@ Client/Client/Debug/
 Server/Server/Debug/
 Server/packages/
 Server/Debug/
+*.aps
+Client/Client/x64/

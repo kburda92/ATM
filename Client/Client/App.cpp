@@ -10,7 +10,7 @@ BOOL App::InitInstance()
 	CWinApp::InitInstance();
 
 	auto docTemplate = new CSingleDocTemplate(
-		IDR_FRAME,
+		IDR_MAINFRAME,
 		RUNTIME_CLASS(Doc),
 		RUNTIME_CLASS(Frame),
 		RUNTIME_CLASS(LoginView));
@@ -19,8 +19,6 @@ BOOL App::InitInstance()
 		return FALSE;
 
 	AddDocTemplate(docTemplate);
-	//auto doc = ((CFrameWnd*)AfxGetMainWnd())->GetActiveView()->GetDocument();
-	//doc->OnNewDocument();
 	CCommandLineInfo cmdInfo;
 	ParseCommandLine(cmdInfo);
 	if (!ProcessShellCommand(cmdInfo))

@@ -3,16 +3,6 @@
 
 IMPLEMENT_DYNCREATE(LoginView, CFormView)
 
-LoginView::LoginView() : CFormView(IDD_LOGIN_VIEW)
+LoginView::LoginView() : CFormView(IDD_LOGINVIEW)
 {
-}
-
-
-LoginView::~LoginView()
-{
-}
-
-void LoginView::DoDataExchange(CDataExchange* pDX)
-{
-	CFormView::DoDataExchange(pDX);
 }

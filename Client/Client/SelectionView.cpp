@@ -1,13 +1,8 @@
 #include "SelectionView.h"
 #include "resource.h"
 
+IMPLEMENT_DYNCREATE(SelectionView, CFormView)
 
-
-SelectionView::SelectionView() : CFormView(IDD_SELECTION_VIEW)
-{
-}
-
-
-SelectionView::~SelectionView()
+SelectionView::SelectionView() : CFormView(IDD_SELECTIONVIEW)
 {
 }

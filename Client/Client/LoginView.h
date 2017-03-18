@@ -4,10 +4,7 @@
 class LoginView : public CFormView
 {
 	DECLARE_DYNCREATE(LoginView)
-protected:
+public:
 	LoginView();
-	~LoginView();
-	virtual void DoDataExchange(CDataExchange* pDX); 
-
 };
 

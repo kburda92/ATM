@@ -30,11 +30,15 @@
     <ClInclude Include="Doc.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="LoginView.h" />
+    <ClInclude Include="Messages.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SelectionView.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{2A833F31-BB35-402E-A21C-D0EA1F32AC08}</ProjectGuid>

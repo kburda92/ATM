@@ -14,13 +14,24 @@ using namespace web::http::experimental::listener;
 #include <string>
 using namespace std;
 
-#define LOG(message)	wcout << message
+#define LOG(message) wcout << message
 typedef map<const http::method, const std::function<void(http_request)>> method_map;
 
 void checkBalance(http_request request)
 {
 	LOG(L"\nChecking account balance\n");
-	request.reply(status_codes::OK);
+	auto pathElements = uri::split_path(request.request_uri().path());
+
+	if (pathElements.size() == 4)
+	{
+		auto id = pathElements[3];
+		//TODO - check balance in database 
+		json::value answer;
+		answer[L"Balance"] = 100;
+		request.reply(status_codes::OK, answer);
+	}
+	else
+		request.reply(status_codes::BadRequest);
 }
 
 void withdrawMoney(http_request request)

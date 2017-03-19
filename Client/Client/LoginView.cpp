@@ -25,7 +25,7 @@ void LoginView::OnLoginButtonClicked()
 		state = std::make_unique<PinState>(this);
 	else
 	{
-		if (!AfxGetMainWnd()->SendMessage(WM_LOGIN, (WPARAM)&idValue, (LPARAM)&pinValue))
+		if (!AfxGetMainWnd()->SendMessage(WM_LOGIN, _ttoi(idValue), _ttoi(pinValue)))
 			state = std::make_unique<IdState>(this);
 		else
 			state.release();

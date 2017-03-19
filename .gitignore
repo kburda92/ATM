@@ -9,3 +9,4 @@ Server/packages/
 Server/Debug/
 *.aps
 Client/Client/x64/
+Client/packages/

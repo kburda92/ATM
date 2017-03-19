@@ -14,10 +14,10 @@ Frame::Frame()
 {
 }
 
-void Frame::SwitchToSelectionView()
+void Frame::SwitchToSelectionView(int id)
 {
 	CView* pOldActiveView = GetActiveView();
-	CView* pNewActiveView = (CView*) new SelectionView();
+	CView* pNewActiveView = (CView*) new SelectionView(id);
 	CCreateContext context;
 	context.m_pCurrentDoc = pOldActiveView->GetDocument();
 	pNewActiveView->Create(NULL, NULL, 0L, CFrameWnd::rectDefault, this, 0, &context);
@@ -48,15 +48,15 @@ BOOL Frame::PreCreateWindow(CREATESTRUCT& cs)
 
 LRESULT Frame::OnLogin(WPARAM wParam, LPARAM lParam)
 {
-	auto *id = (CString*)wParam;
-	auto *pin = (CString*)lParam;
+	auto id = (unsigned int)wParam;
+	auto pin = (unsigned int)lParam;
 
 	auto dataCorrectness = IsIdPinCorrect();
 
 	if (!dataCorrectness)
 		return false;
 
-	SwitchToSelectionView();
+	SwitchToSelectionView(id);
 	return true;
 }
 

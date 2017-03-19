@@ -5,7 +5,7 @@ class Frame : public CFrameWnd
 {
 	DECLARE_DYNCREATE(Frame)
 private:
-	void SwitchToSelectionView();
+	void SwitchToSelectionView(int id);
 	bool IsIdPinCorrect();
 protected:
 	Frame();

@@ -12,6 +12,14 @@ BEGIN_MESSAGE_MAP(SelectionView, CFormView)
 	ON_BN_CLICKED(IDC_CHECKBALANCEBUTTON, &SelectionView::OnCheckBalanceButtonClicked)
 END_MESSAGE_MAP()
 
+void SelectionView::OnInitialUpdate()
+{
+	CFormView::OnInitialUpdate();
+	GetParentFrame()->RecalcLayout();
+	ResizeParentToFit(TRUE);
+	GetParentFrame()->CenterWindow();
+}
+
 void SelectionView::OnCheckBalanceButtonClicked()
 {
 	uri_builder builder(U("http://localhost/atm/balance/id/"));

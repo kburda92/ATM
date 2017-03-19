@@ -13,6 +13,7 @@ using namespace web::http::client;
 
 class SelectionView : public CFormView
 {
+	DECLARE_MESSAGE_MAP()
 private:
 	int id;
 	std::unique_ptr<http_client> client;
@@ -21,7 +22,7 @@ protected:
 	virtual ~SelectionView();
 public:
 	SelectionView(int id);
-	DECLARE_MESSAGE_MAP()
+	void OnInitialUpdate();
 	afx_msg void OnCheckBalanceButtonClicked();
 };
 

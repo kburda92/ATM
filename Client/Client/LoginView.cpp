@@ -51,7 +51,9 @@ void LoginView::DoDataExchange(CDataExchange * pDX)
 void LoginView::OnInitialUpdate()
 {
 	CFormView::OnInitialUpdate();
-	state->Init();
+	GetParentFrame()->RecalcLayout();
+	ResizeParentToFit(TRUE);
+	GetParentFrame()->CenterWindow();
 }
 
 void LoginView::OnEnChangeValueEdit()

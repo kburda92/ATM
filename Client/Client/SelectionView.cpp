@@ -2,8 +2,10 @@
 #include "SelectionView.h"
 #include "resource.h"
 
-SelectionView::SelectionView(int id) : CFormView(IDD_SELECTIONVIEW), id(id)
-{}
+SelectionView::SelectionView(const std::string& id, const std::string& pin) : CFormView(IDD_SELECTIONVIEW)
+{
+	config->set_credentials({ utility::conversions::to_string_t(id), utility::conversions::to_string_t(pin) });
+}
 
 SelectionView::~SelectionView()
 {}
@@ -22,11 +24,13 @@ void SelectionView::OnInitialUpdate()
 
 void SelectionView::OnCheckBalanceButtonClicked()
 {
-	uri_builder builder(U("http://localhost/atm/balance/id/"));
-	builder.set_path(L"http://localhost/atm/balance/id/");
-	builder.append_path(utility::conversions::to_string_t(to_string(id)));
+	uri_builder builder(U("http://localhost"));
+	builder.set_path(U("atm/balance/id"));
+	builder.append_path(config->credentials().username());
+
+	auto uri = builder.to_uri().to_string();
 	
-	client = make_unique<http_client>(builder.path());
+	client = make_unique<http_client>(builder.to_uri(), *config);
 
 	int balance = 0;
 	string error;

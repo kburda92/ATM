@@ -1,11 +1,12 @@
 #pragma once
 #include "afxwin.h"
+#include <string>
 
 class Frame : public CFrameWnd
 {
 	DECLARE_DYNCREATE(Frame)
 private:
-	void SwitchToSelectionView(int id);
+	void SwitchToSelectionView(const std::string& id, const std::string& pin);
 	bool IsIdPinCorrect();
 protected:
 	Frame();

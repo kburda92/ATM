@@ -4,6 +4,8 @@
 #include "resource.h"
 #include "Messages.h"
 
+using namespace std;
+
 IMPLEMENT_DYNCREATE(Frame, CFrameWnd)
 
 BEGIN_MESSAGE_MAP(Frame, CFrameWnd)
@@ -14,10 +16,10 @@ Frame::Frame()
 {
 }
 
-void Frame::SwitchToSelectionView(int id)
+void Frame::SwitchToSelectionView(const string& id, const string& pin)
 {
 	CView* pOldActiveView = GetActiveView();
-	CView* pNewActiveView = (CView*) new SelectionView(id);
+	CView* pNewActiveView = (CView*) new SelectionView(id, pin);
 	CCreateContext context;
 	context.m_pCurrentDoc = pOldActiveView->GetDocument();
 	pNewActiveView->Create(NULL, NULL, 0L, CFrameWnd::rectDefault, this, 0, &context);
@@ -46,17 +48,12 @@ BOOL Frame::PreCreateWindow(CREATESTRUCT& cs)
 	return TRUE;
 }
 
-LRESULT Frame::OnLogin(WPARAM wParam, LPARAM lParam)
+LRESULT Frame::OnLogin(WPARAM id, LPARAM pin)
 {
-	auto id = (unsigned int)wParam;
-	auto pin = (unsigned int)lParam;
-
-	auto dataCorrectness = IsIdPinCorrect();
-
-	if (!dataCorrectness)
+	if (!IsIdPinCorrect())
 		return false;
 
-	SwitchToSelectionView(id);
+	SwitchToSelectionView(to_string(id), to_string(pin));
 	return true;
 }
 

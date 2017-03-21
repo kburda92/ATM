@@ -15,13 +15,14 @@ class SelectionView : public CFormView
 {
 	DECLARE_MESSAGE_MAP()
 private:
-	int id;
+	utility::string_t id, pin;
 	std::unique_ptr<http_client> client;
+	std::unique_ptr<http_client_config> config = std::make_unique<http_client_config>();
 	pplx::task<void> CheckBalance(int& balance, std::string& error);
 protected:
 	virtual ~SelectionView();
 public:
-	SelectionView(int id);
+	SelectionView(const string& id, const string& pin);
 	void OnInitialUpdate();
 	afx_msg void OnCheckBalanceButtonClicked();
 };

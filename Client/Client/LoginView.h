@@ -2,13 +2,8 @@
 #include "afxext.h"
 #include "Messages.h"
 #include "LoginViewStates.h"
+#include "resource.h"
 #include <memory>
-
-enum class ViewType
-{
-	Id,
-	Pin
-};
 
 class LoginView : public CFormView
 {
@@ -22,8 +17,8 @@ private:
 	CStatic enterValueStatic;
 	CString idValue, pinValue;
 protected:
-	LoginView();
-	virtual ~LoginView();
+	LoginView() : CFormView(IDD_LOGINVIEW) {};
+	virtual ~LoginView() {};
 	virtual void DoDataExchange(CDataExchange* pDX);
 public:
 	CEdit& GetValueEdit() { return valueEdit; }

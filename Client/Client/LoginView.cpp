@@ -1,17 +1,9 @@
 #include "LoginView.h"
-#include "resource.h"
 #include "string"
 
 IMPLEMENT_DYNCREATE(LoginView, CFormView)
 
 using namespace std;
-
-LoginView::LoginView() : CFormView(IDD_LOGINVIEW)
-{}
-
-LoginView::~LoginView()
-{}
-
 
 BEGIN_MESSAGE_MAP(LoginView, CFormView)
 ON_BN_CLICKED(IDC_LOGINBUTTON, &LoginView::OnLoginButtonClicked)

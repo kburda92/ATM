@@ -1,4 +1,3 @@
-
 #include "SelectionView.h"
 #include "resource.h"
 
@@ -6,9 +5,6 @@ SelectionView::SelectionView(const std::string& id, const std::string& pin) : CF
 {
 	config->set_credentials({ utility::conversions::to_string_t(id), utility::conversions::to_string_t(pin) });
 }
-
-SelectionView::~SelectionView()
-{}
 
 BEGIN_MESSAGE_MAP(SelectionView, CFormView)
 	ON_BN_CLICKED(IDC_CHECKBALANCEBUTTON, &SelectionView::OnCheckBalanceButtonClicked)
@@ -23,14 +19,8 @@ void SelectionView::OnInitialUpdate()
 }
 
 void SelectionView::OnCheckBalanceButtonClicked()
-{
-	uri_builder builder(U("http://localhost"));
-	builder.set_path(U("atm/balance/id"));
-	builder.append_path(config->credentials().username());
-
-	auto uri = builder.to_uri().to_string();
-	
-	client = make_unique<http_client>(builder.to_uri(), *config);
+{	
+	client = make_unique<http_client>(U("http://localhost/atm"), *config);
 
 	int balance = 0;
 	string error;
@@ -56,8 +46,13 @@ void SelectionView::OnCheckBalanceButtonClicked()
 
 pplx::task<void> SelectionView::CheckBalance(int& balance, string& error)
 {
+	uri_builder builder(U("balance/id"));
+	builder.append_path(config->credentials().username());
+
 	http_request request(methods::GET);
 	request.headers().set_content_type(L"application/json");
+	request.set_request_uri(builder.to_string());
+
 
 	return client->request(request).then([](http_response response)
 	{

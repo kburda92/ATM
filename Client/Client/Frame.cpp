@@ -12,10 +12,6 @@ BEGIN_MESSAGE_MAP(Frame, CFrameWnd)
 	ON_MESSAGE(WM_LOGIN, &Frame::OnLogin)
 END_MESSAGE_MAP()
 
-Frame::Frame()
-{
-}
-
 void Frame::SwitchToSelectionView(const string& id, const string& pin)
 {
 	CView* pOldActiveView = GetActiveView();

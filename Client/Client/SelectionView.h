@@ -20,7 +20,7 @@ private:
 	std::unique_ptr<http_client_config> config = std::make_unique<http_client_config>();
 	pplx::task<void> CheckBalance(int& balance, std::string& error);
 protected:
-	virtual ~SelectionView();
+	virtual ~SelectionView() {};
 public:
 	SelectionView(const string& id, const string& pin);
 	void OnInitialUpdate();

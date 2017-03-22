@@ -9,7 +9,8 @@ private:
 	void SwitchToSelectionView(const std::string& id, const std::string& pin);
 	bool IsIdPinCorrect();
 protected:
-	Frame();
+	Frame() {};
+	virtual ~Frame() {};
 	DECLARE_MESSAGE_MAP()
 public:
 	BOOL PreCreateWindow(CREATESTRUCT& cs);

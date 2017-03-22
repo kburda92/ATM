@@ -19,10 +19,7 @@ BOOL App::InitInstance()
 		return FALSE;
 
 	AddDocTemplate(docTemplate);
-	CCommandLineInfo cmdInfo;
-	ParseCommandLine(cmdInfo);
-	if (!ProcessShellCommand(cmdInfo))
-		return FALSE;
+	OnFileNew();
 
 	m_pMainWnd->ShowWindow(SW_SHOW);
 	m_pMainWnd->UpdateWindow();
